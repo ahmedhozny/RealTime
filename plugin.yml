@@ -1,0 +1,13 @@
+name: RealTime
+author: killer549
+api: 3.0.0
+version: 1.0
+main: killer549\realtime\RealTime
+commands:
+  realtime:
+    description: RealTime main command.
+    usage: /realtime [enable | disable]
+    aliases: ["rt"]
+permissions:
+  realtime.*:
+    default: op

@@ -1,0 +1,5 @@
+#Enable this to let the plugin check the time
+enableTimeChange: true
+
+#Checks the time in ticks.
+check_every: 20
