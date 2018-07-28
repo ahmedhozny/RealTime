@@ -4,6 +4,13 @@
     <img src="icon.png" width="150px" height="150px">
 </p>
 
+[![](https://poggit.pmmp.io/shield.state/RealTime)](https://poggit.pmmp.io/p/RealTime)
+[![](https://poggit.pmmp.io/shield.api/RealTime)](https://poggit.pmmp.io/p/RealTime)
+
+[![](https://poggit.pmmp.io/shield.dl.total/RealTime)](https://poggit.pmmp.io/p/RealTime)
+[![](https://poggit.pmmp.io/shield.dl/RealTime)](https://poggit.pmmp.io/p/RealTime)
+
+
 ## Description
 A PMMP plugin that cycles time as in real life.
 
