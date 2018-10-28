@@ -22,12 +22,11 @@ namespace killer549\realtime;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginBase;
-use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 
 class RealTime extends PluginBase{
 
-	/** @var Config */
+	/** @var array */
 	public $config;
 
 	/** @var int */
@@ -38,40 +37,63 @@ class RealTime extends PluginBase{
 	public function onEnable(){
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
-		$this->config = new Config($this->getDataFolder(). "config.yml", Config::YAML);
-		if($this->config->get("enableTimeChange", true)) {
+		$this->config = yaml_parse(file_get_contents($this->getDataFolder(). "config.yml"));
+		$res_content = yaml_parse(file_get_contents($this->getFile(). "resources/config.yml"));
+		$n_content = false;
+		foreach($res_content as $key =>$value){
+			if(!isset($this->config[$key])){
+				$this->config[$key] = $value;
+				$n_content = true;
+			}
+		}
+
+		if($n_content){
+			$this->getLogger()->notice("Your configuration settings have been modified. Please review config.yml");
+			$this->save();
+		}
+
+		if($this->config["enableTimeChange"]) {
 			$this->startTask();
 		}
 	}
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool{
+		if(!$sender->hasPermission("realtime.command.realtime")){
+			$sender->sendMessage(TextFormat::RED. "You don't have permission to do this.");
+			return true;
+		}
+
 		if($command->getName() === "realtime"){
-			if(count($args) === 0){
+			if(count($args) < 1){
 				$sender->sendMessage($command->getUsage());
 				return true;
 			}
 
 			switch($args[0]){
 				case "enable":
-					if($this->config->get("enableTimeChange")){
-						$sender->sendMessage(TextFormat::GOLD. self::PREFIX. "Already enabled!!");
-					}else{
-						$this->config->set("enableTimeChange", true);
-						$this->config->save();
-						$this->startTask();
-						$sender->sendMessage(TextFormat::GOLD. self::PREFIX. "RealTime has been enabled");
+				case "start":
+					if($this->config["enableTimeChange"]){
+						$sender->sendMessage(TextFormat::GOLD. self::PREFIX. "Already enabled!");
+						return true;
 					}
+
+					$this->config["enableTimeChange"] = true;
+					$this->save();
+					$this->startTask();
+					$sender->sendMessage(TextFormat::GOLD. self::PREFIX. "RealTime has been enabled");
 					break;
 
 				case "disable":
-					if(!$this->config->get("enableTimeChange")){
-						$sender->sendMessage(TextFormat::GOLD. self::PREFIX. "Already disabled!!");
-					}else{
-						$this->config->set("enableTimeChange", false);
-						$this->config->save();
-						$this->cancelTask();
-						$sender->sendMessage(TextFormat::GOLD. self::PREFIX. "RealTime has been disabled");
+				case "stop":
+					if(!$this->config["enableTimeChange"]){
+						$sender->sendMessage(TextFormat::GOLD. self::PREFIX. "Already disabled!");
+						return true;
 					}
+
+					$this->config["enableTimeChange"] = false;
+					$this->save();
+					$this->cancelTask();
+					$sender->sendMessage(TextFormat::GOLD. self::PREFIX. "RealTime has been disabled");
 					break;
 
 				default:
@@ -84,8 +106,15 @@ class RealTime extends PluginBase{
 
 	public function startTask(): void{
 		$this->TimeToggle(true);
-		$ticks = (int) $this->config->get("check_every");
-		$task = $this->getScheduler()->scheduleRepeatingTask(new ChangeTimeTask($this), $ticks);
+		$ticks = (int) $this->config["check_every"];
+		$ticks = min($ticks, 400);
+		$day_start_at = $this->config["day_start_time"];
+		if($day_start_at >= 24 or $day_start_at < 0){
+			$this->getLogger()->notice("Day cannot start at: " . $day_start_at . " . Value will be rested to 8");
+			$day_start_at = 8;
+		}
+
+		$task = $this->getScheduler()->scheduleRepeatingTask(new ChangeTimeTask($day_start_at), $ticks);
 		$this->RealTimeTaskId = $task->getTaskId();
 	}
 
@@ -102,5 +131,9 @@ class RealTime extends PluginBase{
 				$level->startTime();
 			}
 		}
+	}
+
+	public function save(){
+		file_put_contents($this->getDataFolder(). "config.yml" , yaml_emit($this->config, YAML_UTF8_ENCODING));
 	}
 }

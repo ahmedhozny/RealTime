@@ -20,25 +20,32 @@ declare(strict_types=1);
 namespace killer549\realtime;
 
 use pocketmine\scheduler\Task;
+use pocketmine\Server;
 
 class ChangeTimeTask extends Task{
 
-	/** @var RealTime */
-	private $core;
-	
-	public function __construct(RealTime $core){
-		$this->core = $core;
+	/** @var int */
+	private $day_start_at = 0;
+
+	public function __construct(int $day_start_at){
+		$this->day_start_at = $day_start_at;
 	}
-	
+
 	public function onRun(int $currentTick){
-		$hours = date("H", time() - 25200);
+		$day = date("N");
+		$hours = date("H", time() - ($this->day_start_at * 3600));
 		$mins = date("i");
 		$secs = date("s");
-		$timeInSeconds = (($hours * 3600) + ($mins * 60) + $secs);
+		$secondsTime = ($hours * 3600) + ($mins * 60) + $secs;
 
-		$tick = (int) floor($timeInSeconds / 86400 * 24000);
-		foreach($this->core->getServer()->getLevels() as $level){
-			$level->setTime($tick);
+		$tick = (int) floor($secondsTime / 86400 * 24000);
+		$phase = ($day - 1) * 24000;
+		if($tick >= 24000 - 3000 * $day){
+			$phase += 24000;
+		}
+
+		foreach(Server::getInstance()->getLevels() as $level){
+			$level->setTime($tick + $phase);
 		}
 	}
 }
