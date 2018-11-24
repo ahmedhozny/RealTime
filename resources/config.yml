@@ -1,8 +1,5 @@
-#Enable this to let the game time equals to real time.
+---
 enableTimeChange: true
-
-#Checks the time in ticks. Maximum is 400.
 check_every: 20
-
-#Specifies when the day starts at. [e.g: 8 = 8 AM , 13 = 1 PM] Minimum: 0 , Maximum: 23.
 day_start_time: 8
+...
