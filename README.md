@@ -12,13 +12,15 @@
 
 
 ## Description
-A PMMP plugin that cycles time as in real life.
+A PMMP plugin that cycles in-game time as in real life.
 
 ## Configuration
 
 `enableTimeChange` <i> boolean. Setting this to false will disable the checks of time changes and time will work normally.</i>
 
-`check_every` <i> number of ticks the plugin should count to check for the time. </i>
+`check_every` <i> number of ticks the plugin should count to check for the time. Maximum: 400 </i>
+
+`day_start_time` <i> Specifies when a day starts at. [e.g: 8 = 8 AM , 13 = 1 PM] Minimum: 0 , Maximum: 23. </i>
 
 ## Commands
 
