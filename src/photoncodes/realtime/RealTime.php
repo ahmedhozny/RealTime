@@ -199,9 +199,9 @@ class RealTime extends PluginBase implements Listener{
 				$this->sunsetTime = 2 * $this->noonTime - $this->sunriseTime;
 			}
 		}else{
-			$this->noonTime = $this->settings->getNoonTime() + $this->current_date;
-			$this->sunriseTime = $this->noonTime - 21600;
-			$this->sunsetTime = $this->noonTime + 21600;
+			$this->noonTime = (int)$this->settings->getNoonTime() + $this->current_date;
+			$this->sunriseTime = (int)$this->noonTime - 21600;
+			$this->sunsetTime = (int)$this->noonTime + 21600;
 		}
 	}
 
@@ -228,15 +228,15 @@ class RealTime extends PluginBase implements Listener{
 	}
 
 	public function getNoonTime(): int{
-		return (int)$this->noonTime;
+		return $this->noonTime;
 	}
 
 	public function getSunriseTime(): ?int{
-		return (int)$this->sunriseTime;
+		return $this->sunriseTime;
 	}
 
 	public function getSunsetTime(): ?int{
-		return (int) $this->sunsetTime;
+		return $this->sunsetTime;
 	}
 
 	public function onWorldLoad(LevelLoadEvent $event){

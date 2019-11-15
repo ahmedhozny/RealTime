@@ -26,7 +26,7 @@ use pocketmine\Server;
 use pocketmine\utils\Internet;
 
 class AutoLocateTask extends AsyncTask{
-	/** @var bool|PluginException */
+	/** @var bool|String */
 	private $message = null;
 	/** @var float */
 	private $latitude, $longitude;
