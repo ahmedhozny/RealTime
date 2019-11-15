@@ -1,5 +1,10 @@
 ---
-enableTimeChange: true
-check_every: 20
-day_start_time: 8
+version: "1.0"
+enable_time_sync: true
+worlds: [ ]
+location_dependant: false
+auto_locate: false
+noon_time: "11:30"
+broadcast_interval: 30
+broadcast_mode: message
 ...
