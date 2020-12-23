@@ -78,7 +78,7 @@ class RealTime extends PluginBase implements Listener{
 		if(date("Y-m-d") !== date("Y-m-d", $this->current_date)){
 			$new_day = true;
 			$this->current_date = strtotime(date("Y-m-d"));
-			$this->current_week_day = date("N", $this->current_timestamp);
+			$this->current_week_day = (int)date("N", $this->current_timestamp);
 			(new DateChangeEvent($this, $this->current_date))->call();
 		}
 		$this->refreshTimestamp();
@@ -195,13 +195,13 @@ class RealTime extends PluginBase implements Listener{
 			$resultant_hour_angle = rad2deg(acos(-($sin_latitude * $this->sin_sun_declination) / ($cos_latitude * $this->cos_sun_declination)));
 			if(!is_nan($resultant_hour_angle)){
 				$resultant_true_solar_time = abs($resultant_hour_angle - 180) * 4;
-				$this->sunriseTime = 86400 * ($resultant_true_solar_time - 720 + (1440 * $this->fractional_transit)) / 1440 + $this->current_date;
-				$this->sunsetTime = 2 * $this->noonTime - $this->sunriseTime;
+				$this->sunriseTime = (int)(86400 * ($resultant_true_solar_time - 720 + (1440 * $this->fractional_transit)) / 1440 + $this->current_date);
+				$this->sunsetTime = (int)(2 * $this->noonTime - $this->sunriseTime);
 			}
 		}else{
-			$this->noonTime = (int)$this->settings->getNoonTime() + $this->current_date;
-			$this->sunriseTime = (int)$this->noonTime - 21600;
-			$this->sunsetTime = (int)$this->noonTime + 21600;
+			$this->noonTime = $this->settings->getNoonTime() + $this->current_date;
+			$this->sunriseTime = $this->noonTime - 21600;
+			$this->sunsetTime = $this->noonTime + 21600;
 		}
 	}
 

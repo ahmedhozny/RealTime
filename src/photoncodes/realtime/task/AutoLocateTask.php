@@ -44,7 +44,7 @@ class AutoLocateTask extends AsyncTask{
 			if(!is_file($this->path."geoplugin.yml") or yaml_parse(file_get_contents($this->path."geoplugin.yml"))["agree"] !== "TRUE"){
 				throw new PluginException("[RealTime] You must accept geoPlugin policies. You may disable the auto_locate setting from config.yml");
 			}
-			$ip = Internet::getIP();
+			$ip = Internet::getIP(true);
 			if($ip === false or @fsockopen($ip, 80) === false){
 				throw new PluginException("[RealTime] Not connected to the internet.");
 			}
