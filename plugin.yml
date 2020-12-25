@@ -1,8 +1,8 @@
 name: RealTime
-author: photoncodes
+author: killer549
 api: 3.0.0
 version: 1.2.1
-main: photoncodes\realtime\RealTime
+main: killer549\realtime\RealTime
 permissions:
   realtime.command.*:
     default: op

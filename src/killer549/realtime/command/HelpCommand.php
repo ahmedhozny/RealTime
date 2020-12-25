@@ -18,18 +18,23 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime\command;
+namespace killer549\realtime\command;
 
 use pocketmine\command\CommandSender;
+use pocketmine\utils\TextFormat;
 
-class ReloadCommand extends RealtimeCommands{
+class HelpCommand extends RealtimeCommands{
 	public function __construct(){
-		$this->setPermission("realtime.command.reload");
-		$this->setDescription("Updates the settings to correspond to the files");
+		$this->setPermission("realtime.command.help");
+		$this->setDescription("Provides a list of available commands.");
 	}
 
 	public function do(CommandSender $sender, array $args): void{
-		RealtimeCommands::broadcastCommandMessage($sender, "Reloading realtime settings...");
-		$this->getCore()->getSettings()->reload();
+		$sender->sendMessage(TextFormat::GOLD."Showing a list of available commands:");
+		foreach($this->returnAllChildren() as $name => $class){
+			if($class->testPermissionSilent($sender)){
+				$sender->sendMessage(TextFormat::YELLOW."/realtime ".$name.": ".TextFormat::RESET.$class->getDescription());
+			}
+		}
 	}
 }

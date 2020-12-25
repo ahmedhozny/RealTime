@@ -18,14 +18,14 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime;
+namespace killer549\realtime;
 
-use photoncodes\realtime\command\RealtimeCommands;
-use photoncodes\realtime\event\DateChangeEvent;
-use photoncodes\realtime\event\MinuteChangeEvent;
-use photoncodes\realtime\task\AutoLocateTask;
-use photoncodes\realtime\task\VanillaTimeSyncTask;
-use photoncodes\realtime\task\TimeCycleTask;
+use killer549\realtime\command\RealtimeCommands;
+use killer549\realtime\event\DateChangeEvent;
+use killer549\realtime\event\MinuteChangeEvent;
+use killer549\realtime\task\AutoLocateTask;
+use killer549\realtime\task\VanillaTimeSyncTask;
+use killer549\realtime\task\TimeCycleTask;
 use pocketmine\event\level\LevelLoadEvent;
 use pocketmine\event\level\LevelUnloadEvent;
 use pocketmine\event\Listener;

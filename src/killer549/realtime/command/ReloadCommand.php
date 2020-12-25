@@ -18,20 +18,18 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime\event;
+namespace killer549\realtime\command;
 
-use photoncodes\realtime\RealTime;
+use pocketmine\command\CommandSender;
 
-class MinuteChangeEvent extends CustomEvents{
-	/** @var int */
-	private $newTime;
-
-	public function __construct(RealTime $core, int $newTime){
-		$this->newTime = $newTime;
-		parent::__construct($core);
+class ReloadCommand extends RealtimeCommands{
+	public function __construct(){
+		$this->setPermission("realtime.command.reload");
+		$this->setDescription("Updates the settings to correspond to the files");
 	}
 
-	public function getCurrentTime(): int{
-		return $this->newTime;
+	public function do(CommandSender $sender, array $args): void{
+		RealtimeCommands::broadcastCommandMessage($sender, "Reloading realtime settings...");
+		$this->getCore()->getSettings()->reload();
 	}
 }

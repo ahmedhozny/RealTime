@@ -18,13 +18,20 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime\event;
+namespace killer549\realtime\task;
 
-use photoncodes\realtime\RealTime;
-use pocketmine\event\plugin\PluginEvent;
+use killer549\realtime\RealTime;
+use pocketmine\scheduler\Task;
 
-class CustomEvents extends PluginEvent{
+class VanillaTimeSyncTask extends Task{
+	/** @var RealTime */
+	private $core;
+
 	public function __construct(RealTime $core){
-		parent::__construct($core);
+		$this->core = $core;
+	}
+
+	public function onRun(int $currentTick){
+		$this->core->syncVanillaTime();
 	}
 }

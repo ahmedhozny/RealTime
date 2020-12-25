@@ -18,23 +18,25 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime\command;
+namespace killer549\realtime\command;
 
 use pocketmine\command\CommandSender;
 use pocketmine\utils\TextFormat;
 
-class HelpCommand extends RealtimeCommands{
+class DisableCommand extends RealtimeCommands{
 	public function __construct(){
-		$this->setPermission("realtime.command.help");
-		$this->setDescription("Provides a list of available commands.");
+		$this->setPermission("realtime.command.disable");
+		$this->setDescription("Disables game time from synchronising with real-life factors.");
 	}
 
 	public function do(CommandSender $sender, array $args): void{
-		$sender->sendMessage(TextFormat::GOLD."Showing a list of available commands:");
-		foreach($this->returnAllChildren() as $name => $class){
-			if($class->testPermissionSilent($sender)){
-				$sender->sendMessage(TextFormat::YELLOW."/realtime ".$name.": ".TextFormat::RESET.$class->getDescription());
-			}
+		if(!$this->getCore()->getSettings()->isCyclingEnabled()){
+			$sender->sendMessage(TextFormat::GOLD."Already disabled!");
+
+			return;
 		}
+		$this->getCore()->cancelTimeSync();
+		$sender->sendMessage(TextFormat::GOLD."RealTime has been disabled");
+		RealtimeCommands::broadcastCommandMessage($sender, "Disabled realtime synchronisation");
 	}
 }

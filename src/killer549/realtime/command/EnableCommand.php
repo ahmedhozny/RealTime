@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime\command;
+namespace killer549\realtime\command;
 
 use pocketmine\command\CommandSender;
 use pocketmine\utils\TextFormat;

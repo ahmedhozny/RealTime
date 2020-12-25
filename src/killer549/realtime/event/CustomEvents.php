@@ -18,20 +18,13 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime\command;
+namespace killer549\realtime\event;
 
-use pocketmine\command\CommandSender;
-use pocketmine\utils\TextFormat;
+use killer549\realtime\RealTime;
+use pocketmine\event\plugin\PluginEvent;
 
-class CurrentCommand extends RealtimeCommands{
-	public function __construct(){
-		$this->setPermission("realtime.command.current");
-		$this->setDescription("Returns the current time. '/realtime' alone could be used instead.");
-	}
-
-	public function do(CommandSender $sender, array $args): void{
-		$time = $this->getCore()->getCurrentTime();
-		$time = date("H:i", $time);
-		$sender->sendMessage(TextFormat::GREEN."Current time: ".$time);
+class CustomEvents extends PluginEvent{
+	public function __construct(RealTime $core){
+		parent::__construct($core);
 	}
 }

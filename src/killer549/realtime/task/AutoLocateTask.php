@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2018-2020
  *
  *  ____  _____    _    _   _____ ___ __  __ _____
@@ -17,9 +18,9 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime\task;
+namespace killer549\realtime\task;
 
-use photoncodes\realtime\RealTime;
+use killer549\realtime\RealTime;
 use pocketmine\plugin\PluginException;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;

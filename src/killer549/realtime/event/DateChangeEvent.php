@@ -18,20 +18,20 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime\task;
+namespace killer549\realtime\event;
 
-use photoncodes\realtime\RealTime;
-use pocketmine\scheduler\Task;
+use killer549\realtime\RealTime;
 
-class TimeCycleTask extends Task{
-	/** @var RealTime */
-	private $core;
+class DateChangeEvent extends CustomEvents{
+	/** @var int */
+	private $newDate;
 
-	public function __construct(RealTime $core){
-		$this->core = $core;
+	public function __construct(RealTime $core, int $newDate){
+		$this->newDate = $newDate;
+		parent::__construct($core);
 	}
 
-	public function onRun(int $currentTick){
-		$this->core->syncDayInfo();
+	public function getCurrentDate(): int{
+		return $this->newDate;
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (C) 2018-2020
  *
  *  ____  _____    _    _   _____ ___ __  __ _____
@@ -17,7 +18,7 @@
 
 declare(strict_types=1);
 
-namespace photoncodes\realtime;
+namespace killer549\realtime;
 
 class SettingsManager{
 	private const VERSION = "1.0";
