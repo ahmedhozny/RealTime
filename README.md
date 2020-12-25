@@ -12,30 +12,52 @@
 
 
 ## Description
-A PMMP plugin that cycles in-game time as in real life.
+A PMMP plugin that cycles in-game time according to real-life factors.
 
 ## Configuration
+`version` 		<i>NEVER CHANGE THIS VALUE</i>
 
-`enableTimeChange` <i> boolean. Setting this to false will disable the checks of time changes and time will work normally.</i>
+`enable_time_sync` 	<i>[true,false]</i> If true, vanilla time will run with respect to real-life factors
 
-`check_every` <i> number of ticks the plugin should count to check for the time. Maximum: 400 </i>
+`worlds` 		<i>["myworld","broken_nether","TheLOLlevel"]</i> The worlds you would like the plugin to do its job on. Separate the world names with a comma. Leave the brackets empty to include all the worlds
 
-`day_start_time` <i> Specifies when a day starts at. [e.g: 8 = 8 AM , 13 = 1 PM] Minimum: 0 , Maximum: 23. </i>
+`location_dependant` 	If true, vanilla day will cycle as a real day somewhere on earth. Enter your location details in location.yml
+
+`auto_locate` 		If true, the server will verify the location details everytime it starts up using geoPlugin.com
+
+`noon_time` 		The time the sun is at its peak. Used if `location_dependant` is set to false. Don't remove the double quotes "hh:mm:ss". Example: "12:05"
+
+`broadcast_interval` 	Time interval in minutes at which a message with the time is broadcasted
+
+`broadcast_mode` 	<i>[message,tip,popup,title]</i> The way players will receive the message
 
 ## Commands
+`/realtime` Alias: (`/rt`)
 
-`/realtime`  (`/rt`) are the main commands
+`/realtime current` 	returns the current time. '/realtime' alone could be used instead.
 
-`/rt enable` will enable the time checking by setting `enableTimeChange` in `config.yml` to true.
+`/realtime disable` 	disables game time from synchronising with real-life factors.
 
-`/rt disable` will disable the time checking by setting `enableTimeChange` in `config.yml` to false.
+`/realtime enable` 	enables game time synchronising with real-life factors.
 
-## Contribution:
-Feel free to contribute if you have ideas or found an issue.
+`/realtime help` 	provides a list of available commands.
+
+`/realtime reload`	updates the settings to correspond to the files.
+
+`/realtime status` 	returns status about the sun position and current day.
+
+## Caution
+Some formulae are reduced with approximated equations in the program to decline bad impact on the performance. In other words, the calculations are NOT 100% accurate and you may NOT rely on their results by any means. We'll try increasing the accuracy more in the feature.
+
+## Additional information
+Icon by: Aleksandr Reva (https://www.iconfinder.com/icons/1034355/day_night_date_moon_sun_icon)
+
+## Contribution
+Have ideas or found an issue? Feel free to contribute with us.
 Links:
 
-- [Open an issue or request](https://github.com/killer549/RealTime/issues)
-- [Add something new or fix a bug](https://github.com/killer549/RealTime/pulls)
+- [Open an issue or leave a suggestion](https://github.com/photoncodes/RealTime/issues)
+- [Add something new or fix a bug](https://github.com/photoncodes/RealTime/pulls)
 
 ## Licensing information
 	This program is free software: you can redistribute it and/or modify

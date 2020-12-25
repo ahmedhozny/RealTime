@@ -26,7 +26,7 @@ use pocketmine\utils\TextFormat;
 class EnableCommand extends RealtimeCommands{
 	public function __construct(){
 		$this->setPermission("realtime.command.enable");
-		$this->setDescription("Enables game time from synchronising with real-life factors.");
+		$this->setDescription("Enables game time synchronising with real-life factors.");
 	}
 
 	public function do(CommandSender $sender, array $args): void{

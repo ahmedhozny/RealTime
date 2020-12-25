@@ -26,7 +26,7 @@ use pocketmine\utils\TextFormat;
 class StatusCommand extends RealtimeCommands{
 	public function __construct(){
 		$this->setPermission("realtime.command.status");
-		$this->setDescription("Returns status about the current day.");
+		$this->setDescription("Returns status about the sun position and current day.");
 	}
 
 	public function do(CommandSender $sender, array $args): void{
