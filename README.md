@@ -46,10 +46,11 @@ A PMMP plugin that cycles in-game time according to real-life factors.
 
 `/realtime status` 	returns status about the sun position and current day.
 
-## Caution
-Some formulae are reduced with approximated equations in the program to decline bad impact on the performance. In other words, the calculations are NOT 100% accurate and you may NOT rely on their results by any means. We'll try increasing the accuracy more in the feature.
-
 ## Additional information
+- If you're facing timezone issues (the time on your machine is not the same as your terminal). Open up SERVER DIRECTORY/bin/php/php.ini . Add, on a new line, the following setting `date.timezone= "YOUR TIMEZONE"`. A list of all supported timezone shall be found here: www.php.net/manual/en/timezones.php . In my case `date.timezone= "Africa/Cairo"`
+- The results you going to observe are NOT completely accurate. This is to decline bad impact on the overall performance. We'll work on better accuracy, with performance into consideration, on the next updates.
+
+## Credits
 Icon by: Aleksandr Reva (https://www.iconfinder.com/icons/1034355/day_night_date_moon_sun_icon)
 
 ## Contribution
